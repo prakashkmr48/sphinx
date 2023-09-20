@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Welcome to Weather Data API Documentation! &#8212; Weather Data API Documentation 01.01.2023 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script src="_static/documentation_options.js?v=f0469c3c"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="welcome-to-weather-data-api-documentation">
+<h1>Welcome to Weather Data API Documentation!<a class="headerlink" href="#welcome-to-weather-data-api-documentation" title="Link to this heading">¶</a></h1>
+<p># Weather Data API Documentation</p>
+<p>## Introduction</p>
+<p>The Weather Data API provides real-time weather information for a given location. It leverages the OpenWeatherMap API to fetch weather data based on the provided city name. This documentation outlines how to use the API, its endpoints, and the expected response.</p>
+<p>## Getting Started</p>
+<p>### Base URL</p>
+<p>The base URL for accessing the Weather Data API is:
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">https://api.openweathermap.org/data/2.5/weather</span>
+<span class="pre">`</span></code></p>
+<p>### API Key</p>
+<p>To use this API, you need an API key from OpenWeatherMap. Replace <cite>“YOUR_API_KEY”</cite> in the requests with your actual API key. You can obtain a free API key by signing up at [OpenWeatherMap](<a class="reference external" href="https://openweathermap.org/">https://openweathermap.org/</a>).</p>
+<p>## Endpoints</p>
+<p>### Get Weather Data</p>
+<p>#### Endpoint: <cite>/api/get-weather</cite></p>
+<ul class="simple">
+<li><p><strong>HTTP Method:</strong> GET</p></li>
+<li><p><strong>Description:</strong> Retrieve weather data for a specific city.</p></li>
+<li><p><strong>Parameters:</strong>
+- <cite>q</cite> (string, required): The name of the city for which you want to retrieve weather data.
+- <cite>appid</cite> (string, required): Your OpenWeatherMap API key.
+- <cite>units</cite> (string, optional): Unit system for temperature. Use <cite>“metric”</cite> for Celsius or <cite>“imperial”</cite> for Fahrenheit (default: <cite>“metric”</cite>).</p></li>
+</ul>
+<p>#### Example Request:
+<code class="docutils literal notranslate"><span class="pre">`http</span>
+<span class="pre">GET</span> <span class="pre">/api/get-weather?q=London&amp;appid=YOUR_API_KEY</span>
+<span class="pre">`</span></code></p>
+<p>#### Response:</p>
+<ul class="simple">
+<li><p><strong>Status Code:</strong> 200 (OK) if successful, other status codes if there is an error.</p></li>
+<li><p><strong>Response Format:</strong> JSON</p></li>
+</ul>
+<p>##### Successful Response (Status Code: 200):
+<a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>json
+{</p>
+<blockquote>
+<div><dl class="simple">
+<dt>“coord”: {</dt><dd><p>“lon”: -0.1257,
+“lat”: 51.5085</p>
+</dd>
+</dl>
+<p>},
+“weather”: [</p>
+<blockquote>
+<div><dl class="simple">
+<dt>{</dt><dd><p>“id”: 801,
+“main”: “Clouds”,
+“description”: “few clouds”,
+“icon”: “02d”</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>],
+“base”: “stations”,
+“main”: {</p>
+<blockquote>
+<div><p>“temp”: 21.76,
+“feels_like”: 21.32,
+“temp_min”: 21.19,
+“temp_max”: 22.36,
+“pressure”: 1015,
+“humidity”: 45</p>
+</div></blockquote>
+<p>},
+“visibility”: 10000,
+“wind”: {</p>
+<blockquote>
+<div><p>“speed”: 2.91,
+“deg”: 41,
+“gust”: 2.64</p>
+</div></blockquote>
+<p>},
+“clouds”: {</p>
+<blockquote>
+<div><p>“all”: 22</p>
+</div></blockquote>
+<p>},
+“dt”: 1632178609,
+“sys”: {</p>
+<blockquote>
+<div><p>“type”: 2,
+“id”: 2031932,
+“country”: “GB”,
+“sunrise”: 1632139032,
+“sunset”: 1632182282</p>
+</div></blockquote>
+<p>},
+“timezone”: 3600,
+“id”: 2643743,
+“name”: “London”,
+“cod”: 200</p>
+</div></blockquote>
+<section id="id5">
+<h2>}<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h2>
+<p>##### Error Response:
+- If the city name is not found or other errors occur, you will receive a JSON response with an appropriate error message and status code.</p>
+<p>## Usage Example</p>
+<p>### Python Example Code:</p>
+<p><a href="#id6"><span class="problematic" id="id7">``</span></a><a href="#id8"><span class="problematic" id="id9">`</span></a>python
+import requests</p>
+<dl>
+<dt>def get_weather(api_key, city_name):</dt><dd><p>base_url = “<a class="reference external" href="https://api.openweathermap.org/data/2.5/weather">https://api.openweathermap.org/data/2.5/weather</a>”
+params = {</p>
+<blockquote>
+<div><p>“q”: city_name,
+“appid”: api_key,
+“units”: “metric”,  # Change to “imperial” for Fahrenheit</p>
+</div></blockquote>
+<p>}</p>
+<p>response = requests.get(base_url, params=params)</p>
+<dl class="simple">
+<dt>if response.status_code == 200:</dt><dd><p>data = response.json()
+return data</p>
+</dd>
+<dt>else:</dt><dd><p>return None</p>
+</dd>
+</dl>
+</dd>
+<dt>def main():</dt><dd><p>api_key = “YOUR_API_KEY”  # Replace with your OpenWeatherMap API key
+city_name = input(“Enter the name of the city: “)</p>
+<p>weather_data = get_weather(api_key, city_name)</p>
+<dl class="simple">
+<dt>if weather_data:</dt><dd><p>print(f”Weather in {city_name}:”)
+print(f”Temperature: {weather_data[‘main’][‘temp’]}°C”)
+print(f”Description: {weather_data[‘weather’][0][‘description’]}”)
+print(f”Humidity: {weather_data[‘main’][‘humidity’]}%”)
+print(f”Wind Speed: {weather_data[‘wind’][‘speed’]} m/s”)</p>
+</dd>
+<dt>else:</dt><dd><p>print(“Unable to fetch weather data.”)</p>
+</dd>
+</dl>
+</dd>
+<dt>if __name__ == “__main__”:</dt><dd><p>main()</p>
+</dd>
+</dl>
+<p><a href="#id10"><span class="problematic" id="id11">``</span></a><a href="#id12"><span class="problematic" id="id13">`</span></a></p>
+<p>## Error Handling</p>
+<ul class="simple">
+<li><p>In case of errors, the API will return appropriate HTTP status codes along with error messages in the JSON response.</p></li>
+</ul>
+<p>## Rate Limiting</p>
+<ul class="simple">
+<li><p>OpenWeatherMap may impose rate limits on API usage for free or trial API keys. Refer to OpenWeatherMap’s documentation for rate limit details.</p></li>
+</ul>
+<p>## Conclusion</p>
+<p>The Weather Data API allows you to access real-time weather data for a specified city. By following the guidelines provided in this documentation, you can integrate weather information into your applications or services with ease.
+.. toctree:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">maxdepth</span><span class="p">:</span> <span class="mi">2</span>
+<span class="p">:</span><span class="n">caption</span><span class="p">:</span> <span class="n">Contents</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">Weather Data API Documentation</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Prakash Kumar.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
